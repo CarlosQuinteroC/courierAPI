@@ -5,7 +5,7 @@ import AuthController from "./controllers/AuthController";
 import RoleController from "./controllers/RoleController";
 import CompanyController from "./controllers/Companycontroller";
 import OrderController from "./controllers/OrderController";
-import SessionMiddleware from "middlewares/session";
+import SessionMiddleware from "./middlewares/session";
 
 
 const app = express();
