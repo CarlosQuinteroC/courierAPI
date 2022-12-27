@@ -1,0 +1,796 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "CourierAPI",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4500"
+    }
+  ],
+  "paths": {
+    "/auth": {
+      "post": {
+        "description": "Metodo para autenticacion",
+        "tags": ["Authentication"],
+        "requestBody": {
+          "description": "*Authentication*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "email": "carlos@mail.com",
+                "password": "Colombia2022"
+              }
+            },
+            "description": "Campos requeridos:\n * `email:` - email del usuario a autenticar\n * `password:` - contraseña del usuario\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Credenciales incorrectas"
+          },
+          "500": {
+            "description": "Error del sistema"
+          }
+        }
+      }
+    },
+    "/company": {
+      "post": {
+        "description": "Metodo para crear una compañia",
+        "tags": ["Company"],
+        "requestBody": {
+          "description": "*Crear Compañia*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "create Company",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "name": "Empresa 1",
+                "phone": "3057093906",
+                "city": "Bogotá",
+                "address": "calle falsa 123",
+                "email": "empresa1@mail.com"
+              }
+            },
+            "description": "Campos requeridos:\n * `name:` - Nombre dela compañia\n * `phone:` - Número de telefono\n * `city:` - Ciudad de la empresa\n * `address:` - Dirección de la compañia\n * `email:` - Correo electronico de la compañia\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "description": "Metodo para listar Compañias",
+        "tags": ["Company"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "No tiene acceso a este recurso"
+          }
+        }
+      }
+    },
+    "/company/{id}": {
+      "put": {
+        "description": "Editar una compañia",
+        "tags": ["Company"],
+        "requestBody": {
+          "description": "*Editar Compañia*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Empresa 1",
+                  "phone": "3057093906",
+                  "city": "Bogotá",
+                  "address": "calle falsa 123",
+                  "email": "empresa1@mail.com"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "Eliminar una compañia",
+        "tags": ["Company"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "description": "Metodo para listar usuarios",
+        "tags": ["User"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "Metodo para crear un nuevo Usuario",
+        "tags": ["User"],
+        "requestBody": {
+          "description": "*Crear Usuario*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "names": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "identification": {
+                    "type": "number"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "roleId": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "names": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "identification": {
+                  "type": "number"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "roleId": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                }
+              },
+              "example": {
+                "companyId": "63a37fc8b12df0e5caee9b31",
+                "names": "recibe1",
+                "lastName": "Quintero",
+                "identification": 123456789,
+                "email": "recibe1@mail.com",
+                "password": "Colombia2022*",
+                "roleId": "63a3819b92e29472a6ded6e9",
+                "city": "Bogota",
+                "address": "calle falsa 123"
+              }
+            },
+            "description": "Campos requeridos:\n * `companyId:` - Id de la compañia a la que pertenece (opcional)\n * `names:` - Nombre del usuario\n * `lastName:` - apellido del usuario\n * `identification:` - Número de identificación del usuario\n * `email:` - correo electronico\n * `password:` - contraseña\n * `roleId:` - id del role a asignar\n * `city:` - Ciudad de resisdencia del usuario\n * `address:` - Dirección de residencia del usuario\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "No tiene acceso a este recurso"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "put": {
+        "description": "",
+        "tags": ["User"],
+        "requestBody": {
+          "description": "*Editar Usuario*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "names": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "identification": {
+                    "type": "number"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "roleId": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "names": "Carlos",
+                "lastName": "Castro",
+                "email": "carlos@mail.com",
+                "password": "Colombia2022",
+                "role": "637b87713bc4d20cdc4ee327"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "Eliminar un suario",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "No tiene acceso a este recurso"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "No tiene acceso a este recurso"
+          }
+        }
+      }
+    },
+    "/role": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Metodo para listar Roles",
+        "tags": ["Role"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "Metodo para crear un nuevo Role",
+        "tags": ["Role"],
+        "requestBody": {
+          "description": "*Crear Role*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "permisions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["CREATE", "EDIT", "SEARCH", "DELETE"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "permisions": {
+                  "type": "array"
+                }
+              },
+              "example": {
+                "name": "RoleName",
+                "permisions": ["CREATE", "EDIT", "SEARCH", "DELETE"]
+              }
+            },
+            "description": "Campos requeridos:\n * `name:` - Nombre del Role\n * `permisions:` - Puede ser CREATE, EDIT, DELETE, SEARCH\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/role/{id}": {
+      "put": {
+        "description": "",
+        "tags": ["Role"],
+        "requestBody": {
+          "description": "*Editar Role*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "permisions": {
+                    "type": "array"
+                  }
+                },
+                "example": {
+                  "name": "RoleName",
+                  "permisions": ["CREATE", "EDIT", "SEARCH", "DELETE"]
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "tags": ["Role"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/order": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Metodo para listar ordenes",
+        "tags": ["Order"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "Metodo para crear un nuevo Role",
+        "tags": ["Order"],
+        "requestBody": {
+          "description": "*Crear orden*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "senderId": {
+                    "type": "string"
+                  },
+                  "receiverId": {
+                    "type": "string"
+                  },
+                  "height": {
+                    "type": "number"
+                  },
+                  "width": {
+                    "type": "number"
+                  },
+                  "depth": {
+                    "type": "number"
+                  },
+                  "weight": {
+                    "type": "number"
+                  },
+                  "status": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["CREATED", "ONROAD", "FINISHED"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "senderId": {
+                  "type": "string"
+                },
+                "receiverId": {
+                  "type": "string"
+                },
+                "height": {
+                  "type": "number"
+                },
+                "width": {
+                  "type": "number"
+                },
+                "depth": {
+                  "type": "number"
+                },
+                "weight": {
+                  "type": "number"
+                },
+                "status": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["CREATED", "ONROAD", "FINISHED"]
+                  }
+                }
+              },
+              "example": {
+                "senderId": "63a381ed92e29472a6ded6ee",
+                "receiverId": "63a3823592e29472a6ded6f2",
+                "height": 10,
+                "width": 10,
+                "depth": 10,
+                "weight": 2,
+                "status": "CREATED"
+            }
+            },
+            "description": "Campos requeridos:\n * `senderId:` - Id del usuario que envia\n * `receiverId:` - Id del usuario que envia\n* `permisions:` - Puede ser CREATE, EDIT, DELETE, SEARCH\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/order/{id}": {
+      "put": {
+        "description": "",
+        "tags": ["Order"],
+        "requestBody": {
+          "description": "*Editar Orden*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "senderId": {
+                    "type": "string"
+                  },
+                  "receiverId": {
+                    "type": "string"
+                  },
+                  "height": {
+                    "type": "number"
+                  },
+                  "width": {
+                    "type": "number"
+                  },
+                  "depth": {
+                    "type": "number"
+                  },
+                  "weight": {
+                    "type": "number"
+                  },
+                  "status": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["CREATED", "ONROAD", "FINISHED"]
+                    }
+                  }
+                },
+                "example": {
+                  "senderId": "63a381ed92e29472a6ded6ee",
+                  "receiverId": "63a3823592e29472a6ded6f2",
+                  "height": 10,
+                  "width": 10,
+                  "depth": 10,
+                  "weight": 2,
+                  "status": "CREATED"
+              }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "tags": ["Order"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
