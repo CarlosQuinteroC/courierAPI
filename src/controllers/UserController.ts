@@ -15,7 +15,7 @@ UserController.get('/',async (request:Request, response: Response) => {
     }  
   });
 
-  UserController.post('/',[SessionMiddleware.validateRouteAuthentication],async (request:Request, response: Response) => {
+  UserController.post('/',/*[SessionMiddleware.validateRouteAuthentication],*/async (request:Request, response: Response) => {
     try {
         const user = request.body;
       const serviceResult = await UserService.createUser(user);
@@ -46,7 +46,7 @@ UserController.get('/',async (request:Request, response: Response) => {
     }
   });
   
-  UserController.get('/:id', async(request:Request, response:Response) => {
+ /* UserController.get('/:id', async(request:Request, response:Response) => {
     try {
       const userId: Object = request.params.id;
       const serviceResult = await UserService.findById(userId);
@@ -54,5 +54,5 @@ UserController.get('/',async (request:Request, response: Response) => {
     } catch (error) {
       response.status(500).send({ status: "Ok", result: error });
     }
-  });
+  });*/
 export default UserController;

@@ -1,18 +1,49 @@
 import User from "../database/user";
 import * as bcrypt from 'bcrypt';
-import { response } from "express";
-import IUser from "models/IUser";
+import IUser from "../models/IUser";
 
 export default class UserService {
     public static getUSer(): Promise<IUser[]>{
-        return new Promise( async (resolve, reject) => {
-            try {
-                const resultService = await User.find({ isDeleted : false });
-                resolve(resultService);
-            } catch (error) {
-                reject(error);
+      return new Promise(async (resolve, reject) => {
+        try {
+          const listUsers = await User.aggregate([
+            {
+              $match: {
+                isDeleted: false,
+              },
+            },
+            {
+              $lookup: {
+                from: 'roles',
+                localField: 'roleId',
+                foreignField: '_id',
+                as: 'roleMatch'
+              }
+            },
+            {
+              $unwind: "$roleMatch"
+            },
+            {
+              $project: {
+                _id: 1,
+                names: 1,
+                lastName: 1,
+                identification: 1,
+                email: 1,
+                role: 1,
+                roleName: "$roleMatch.name",
+                permisions: "$roleMatch.permisions",
+                city: 1,
+                address: 1,
+                isDeleted: 1,
+              }
             }
-        });
+          ])
+          resolve(listUsers);
+        } catch (error: any) {
+          reject(error);
+        }
+      });
     }
 
     public static createUser(user: IUser): Promise<string>{
@@ -31,7 +62,7 @@ export default class UserService {
         return new Promise(async (resolve, reject) => {
           try {
             user.password = bcrypt.hashSync(user.password,10);
-            const serviceResult =  await User.updateOne({ _id: userId }, user);
+            await User.updateOne({ _id: userId }, user);
             resolve(`Usuario ${user.names} ${user.lastName} editado correctamente.`);
           } catch (error) {
             reject(error);
@@ -49,15 +80,15 @@ export default class UserService {
           }
         });
       }
-
-      public static findById(userId: Object): Promise<IUser>{
-        return new Promise(async(resolve, reject) => {
+/*
+      public static findById(userId: Object): Promise<IUser | null>{
+        return new Promise(async (resolve, reject) => {
           try {
-            const serviceResult = await User.findById({ _id: userId});
-            resolve(serviceResult!);
-          } catch (error) {
+            const UserById = await User.findOne({ _id: userId }, { isDeleted: false });
+            resolve(UserById);
+          } catch (error: any) {
             reject(error);
           }
-        });
-      }
+        })
+      }*/
 }

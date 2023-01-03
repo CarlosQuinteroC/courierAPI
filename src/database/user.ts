@@ -5,6 +5,9 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
     {
+        companyId:{
+            type: mongoose.Types.ObjectId,
+        },
         names: {
             type: String,
             required: true,
@@ -12,6 +15,10 @@ const UserSchema = new Schema(
         lastName: {
             type: String,
             required: true,
+        },
+        identification:{
+            type: Number,
+            required: true
         },
         email: {
             type: String,
@@ -23,9 +30,19 @@ const UserSchema = new Schema(
         password: {
             type: String,
             required: true,
+            select: false
         },
-        role: {
+        roleId: {
             type: mongoose.Types.ObjectId, //No se envia rreglo pues solo es posible tener un role
+            required: true
+        },
+        city:{
+            type: String,
+            required: true
+        },
+        address:{
+            type: String,
+            required: true
         },
         isDeleted: {
             type: Boolean,
