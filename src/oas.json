@@ -28,7 +28,9 @@
                   "password": {
                     "type": "string"
                   }
-                }
+                },
+                "required": ["email", "password"],
+                "additionalProperties": false
               }
             }
           }
@@ -678,7 +680,7 @@
                 "depth": 10,
                 "weight": 2,
                 "status": "CREATED"
-            }
+              }
             },
             "description": "Campos requeridos:\n * `senderId:` - Id del usuario que envia\n * `receiverId:` - Id del usuario que envia\n* `permisions:` - Puede ser CREATE, EDIT, DELETE, SEARCH\n"
           }
@@ -736,7 +738,7 @@
                   "depth": 10,
                   "weight": 2,
                   "status": "CREATED"
-              }
+                }
               }
             }
           }
